@@ -53,10 +53,14 @@ function getBlocks(array $user): array {
     $totalPreferCols = getTotalCols($user, 'prefer');
     $totalMinCols = getTotalCols($user, 'min');
 
-    // var_dump($totalPreferCols, $totalMinCols);
-
     if ($userBlocksCount < $totalBlocksCount) {
         if ($totalPreferCols > $maxCols) {
+            // set the minimum width for each block respectively
+            foreach ($blocks as &$arr) {
+                ['block' => $block] = $arr;
+                $arr['cols'] = $block['cols']['min'];
+            }
+
             if ($totalMinCols > $maxCols) {
                 // set the same width for each block
                 // all of them will be evenly spaced
@@ -66,14 +70,9 @@ function getBlocks(array $user): array {
                 foreach ($blocks as &$arr) {
                     $arr['cols'] = $cols;
                 }
-            } elseif ($totalMinCols < $maxCols) {
-                // todo
             } else {
-                // set the minimum width for each block respectively
-                foreach ($blocks as &$arr) {
-                    ['block' => $block] = $arr;
-                    $arr['cols'] = $block['cols']['min'];
-                }
+                // the width of the last block will be "auto" (i.e. just class="col")
+                $blocks[count($blocks)-1]['cols'] = null;
             }
         }
     }

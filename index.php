@@ -28,15 +28,16 @@ require_once __DIR__.'/src/functions.php';
         <div class="row">
             <?php foreach (getBlocks($user) as $arr):
                 ['block' => $block, 'cols' => $cols] = $arr;
+                $class = is_null($cols) ? 'col' : 'col-'.$cols;
             ?>
 
-                <div class="col-<?= $cols ?>">
+                <div class="<?= $class ?>">
                     <div class="card mb-3">
                         <div class="card-header">
                             <h5 class="text-uppercase d-inline-block mb-0">
                                 <?= $block['title'] ?>
                             </h5>
-                            <span>(col-<?= $cols ?>)</span>
+                            <span>(<?= $class ?>)</span>
                         </div>
                         <div class="card-body">
                             <?= $config['lorem'] ?>
