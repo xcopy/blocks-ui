@@ -1,0 +1,2 @@
+- `git clone git@github.com:xcopy/blocks-ui.git`
+- `php -S localhost:8000`
