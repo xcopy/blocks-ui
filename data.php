@@ -5,8 +5,7 @@ return [
         [
             'id' => 1,
             'title' => 'Patient',
-            'type' => 'success',
-            'config' => [
+            'cols' => [
                 'min' => 6,
                 'max' => 7,
                 'prefer' => 7
@@ -15,7 +14,7 @@ return [
         [
             'id' => 2,
             'title' => 'Employment',
-            'config' => [
+            'cols' => [
                 'min' => 5,
                 'max' => 6,
                 'prefer' => 5
@@ -24,7 +23,7 @@ return [
         [
             'id' => 3,
             'title' => 'Benefits',
-            'config' => [
+            'cols' => [
                 'min' => 6,
                 'max' => 12,
                 'prefer' => 12
@@ -34,15 +33,15 @@ return [
     'users' => [
         [
             'id' => 1,
-            'username' => 'john_doe',
+            'name' => 'John Doe',
             'email' => 'john.doe@gmail.com',
-            'allowedBlocks' => [1, 2, 3]
+            'blocks' => [1, 3]
         ],
         [
             'id' => 2,
-            'username' => 'jane_doe',
+            'name' => 'Jane Doe',
             'email' => 'jane.doe@gmail.com',
-            'allowedBlocks' => [1, 3]
+            'blocks' => [1, 2, 3]
         ]
     ]
 ];
