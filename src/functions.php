@@ -17,9 +17,7 @@ function findBlock(int $id): array {
  * @return array
  */
 function getRows(array $user): array {
-    global $config;
-
-    ['maxCols' => $maxCols] = $config;
+    $maxCols = 12;
 
     $blocks = array_map(fn (int $id): array => findBlock($id), $user['blocks']);
 
