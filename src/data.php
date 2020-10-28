@@ -37,6 +37,33 @@ return [
                 'max' => 12,
                 'prefer' => 12
             ]
+        ],
+        [
+            'id' => 5,
+            'title' => 'Awesome Block 1',
+            'cols' => [
+                'min' => 4,
+                'max' => 6,
+                'prefer' => 6
+            ]
+        ],
+        [
+            'id' => 6,
+            'title' => 'Awesome Block 2',
+            'cols' => [
+                'min' => 5,
+                'max' => 8,
+                'prefer' => 6
+            ]
+        ],
+        [
+            'id' => 7,
+            'title' => 'Awesome Block 3',
+            'cols' => [
+                'min' => 7,
+                'max' => 8,
+                'prefer' => 7
+            ]
         ]
     ],
     'users' => [
@@ -44,7 +71,7 @@ return [
             'id' => 1,
             'name' => 'John Doe',
             'email' => 'john.doe@gmail.com',
-            'blocks' => [1, 3, 4]
+            'blocks' => [1, 3, 4, 5, 7]
         ],
         [
             'id' => 2,
