@@ -28,6 +28,15 @@ return [
                 'max' => 12,
                 'prefer' => 12
             ]
+        ],
+        [
+            'id' => 4,
+            'title' => 'Medical History',
+            'cols' => [
+                'min' => 6,
+                'max' => 12,
+                'prefer' => 12
+            ]
         ]
     ],
     'users' => [
@@ -35,13 +44,13 @@ return [
             'id' => 1,
             'name' => 'John Doe',
             'email' => 'john.doe@gmail.com',
-            'blocks' => [1, 3]
+            'blocks' => [1, 3, 4]
         ],
         [
             'id' => 2,
             'name' => 'Jane Doe',
             'email' => 'jane.doe@gmail.com',
-            'blocks' => [1, 2, 3]
+            'blocks' => [1, 2, 3, 4]
         ]
     ]
 ];

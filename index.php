@@ -28,6 +28,7 @@ require_once __DIR__.'/src/functions.php';
         <div class="row">
             <?php foreach (getBlocks($user) as $arr):
                 ['block' => $block, 'cols' => $cols] = $arr;
+                ['min' => $min, 'max' => $max, 'prefer' => $prefer] = $block['cols'];
                 $class = is_null($cols) ? 'col' : 'col-'.$cols;
             ?>
 
@@ -35,11 +36,16 @@ require_once __DIR__.'/src/functions.php';
                     <div class="card mb-3">
                         <div class="card-header">
                             <h5 class="text-uppercase d-inline-block mb-0">
-                                <?= $block['title'] ?>
+                                <?= $block['id'] ?>. <?= $block['title'] ?>
                             </h5>
                             <span>(<?= $class ?>)</span>
                         </div>
                         <div class="card-body">
+                            <p class="text-muted">
+                                min: <?= $min ?>,
+                                max: <?= $max ?>,
+                                prefer: <?= $prefer ?>,
+                            </p>
                             <?= $config['lorem'] ?>
                         </div>
                     </div>
