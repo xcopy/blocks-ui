@@ -32,50 +32,77 @@ function getTotalCols(array $user, string $key): int {
  * @param array $user
  * @return array
  */
-function getBlocks(array $user): array {
-    global $data, $config;
+function getRows(array $user): array {
+    global $config;
 
-    $userBlocksCount = count($user['blocks']);
-    $totalBlocksCount = count($data['blocks']);
+    ['maxCols' => $maxCols] = $config;
 
-    $blocks = array_map(
-        function (int $id): array {
-            $block = findBlock($id);
-            $cols = $block['cols']['prefer']; // by default
+    $blocks = array_map(fn (int $id): array => findBlock($id), $user['blocks']);
 
-            return compact('block', 'cols');
-        },
-        $user['blocks']
-    );
+    $keys = ['prefer', 'max', 'min'];
+    $keysCount = count($keys);
 
-    ['minCols' => $minCols, 'maxCols' => $maxCols] = $config;
+    $step = 0;
 
-    $totalPreferCols = getTotalCols($user, 'prefer');
-    $totalMinCols = getTotalCols($user, 'min');
+    $rows = [];
 
-    if ($userBlocksCount < $totalBlocksCount) {
-        if ($totalPreferCols > $maxCols) {
-            // set the minimum width for each block respectively
-            foreach ($blocks as &$arr) {
-                ['block' => $block] = $arr;
-                $arr['cols'] = $block['cols']['min'];
+    foreach ($blocks as $block) {
+        $current = $blocks[$step];
+        $next = $blocks[$step+1];
+
+        $row = null;
+
+        if ($next) {
+            for ($i = 0; $i < $keysCount; $i++) {
+                for ($j = 0; $j < $keysCount; $j++) {
+                    $key1 = $keys[$i];
+                    $key2 = $keys[$j];
+
+                    $num1 = $current['cols'][$key1];
+                    $num2 = $next['cols'][$key2];
+
+                    if ($num1 === $maxCols) {
+                        $row = [
+                            ['block' => $current, 'cols' => $num1]
+                        ];
+
+                        $j = $keysCount;
+                        $i = $keysCount;
+                        $step = $step + 1;
+                    } else {
+                        if ($num1 + $num2 === $maxCols) {
+                            $row = [
+                                ['block' => $current, 'cols' => $num1],
+                                ['block' => $next, 'cols' => $num2]
+                            ];
+
+                            $j = $keysCount;
+                            $i = $keysCount;
+                            $step = $step + 2;
+                        }
+                    }
+                }
             }
 
-            if ($totalMinCols > $maxCols) {
-                // set the same width for each block
-                // all of them will be evenly spaced
-                $cols = ceil($maxCols / $userBlocksCount);
-                $cols = $cols < $minCols ? $minCols : $cols;
+            if (! $row) {
+                $row = [
+                    ['block' => $current, 'cols' => null]
+                ];
 
-                foreach ($blocks as &$arr) {
-                    $arr['cols'] = $cols;
-                }
-            } else {
-                // the width of the last block will be "auto" (i.e. just class="col")
-                $blocks[count($blocks)-1]['cols'] = null;
+                $step = $step + 1;
+            }
+        } else {
+            if ($current) {
+                $row = [
+                    ['block' => $current, 'cols' => null]
+                ];
+
+                $step = count($blocks);
             }
         }
+
+        $row and array_push($rows, $row);
     }
 
-    return $blocks;
+    return $rows;
 }

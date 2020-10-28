@@ -25,34 +25,37 @@ require_once __DIR__.'/src/functions.php';
     <?php foreach ($data['users'] as $user): ?>
         <h1 class="my-3"><?= $user['name'] ?></h1>
 
-        <div class="row">
-            <?php foreach (getBlocks($user) as $arr):
-                ['block' => $block, 'cols' => $cols] = $arr;
-                ['min' => $min, 'max' => $max, 'prefer' => $prefer] = $block['cols'];
-                $class = is_null($cols) ? 'col' : 'col-'.$cols;
-            ?>
+        <?php foreach (getRows($user) as $rows): ?>
+            <div class="row">
 
-                <div class="<?= $class ?>">
-                    <div class="card mb-3">
-                        <div class="card-header">
-                            <h5 class="text-uppercase d-inline-block mb-0">
-                                <?= $block['id'] ?>. <?= $block['title'] ?>
-                            </h5>
-                            <span>(<?= $class ?>)</span>
-                        </div>
-                        <div class="card-body">
-                            <p class="text-muted">
-                                min: <?= $min ?>,
-                                max: <?= $max ?>,
-                                prefer: <?= $prefer ?>,
-                            </p>
-                            <?= $config['lorem'] ?>
+                <?php foreach ($rows as $row):
+                    ['block' => $block, 'cols' => $cols] = $row;
+                    ['min' => $min, 'max' => $max, 'prefer' => $prefer] = $block['cols'];
+                    $class = is_null($cols) ? 'col' : 'col-'.$cols;
+                ?>
+
+                    <div class="<?= $class ?>">
+                        <div class="card mb-3">
+                            <div class="card-header">
+                                <h5 class="text-uppercase d-inline-block mb-0">
+                                    <?= $block['id'] ?>. <?= $block['title'] ?>
+                                </h5>
+                                <span>(<?= $class ?>)</span>
+                            </div>
+                            <div class="card-body">
+                                <p class="text-muted">
+                                    min: <?= $min ?>,
+                                    max: <?= $max ?>,
+                                    prefer: <?= $prefer ?>,
+                                </p>
+                                <?= $config['lorem'] ?>
+                            </div>
                         </div>
                     </div>
-                </div>
 
-            <?php endforeach; ?>
-        </div>
+                <?php endforeach; ?>
+            </div>
+        <?php endforeach; ?>
         <hr>
     <?php endforeach; ?>
 </div>
