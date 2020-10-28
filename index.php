@@ -29,8 +29,7 @@ require_once __DIR__.'/src/functions.php';
             <div class="row">
 
                 <?php foreach ($rows as $row):
-                    ['block' => $block, 'cols' => $cols] = $row;
-                    ['min' => $min, 'max' => $max, 'prefer' => $prefer] = $block['cols'];
+                    ['block' => $block, 'cols' => $cols, 'key' => $key] = $row;
                     $class = is_null($cols) ? 'col' : 'col-'.$cols;
                 ?>
 
@@ -43,10 +42,10 @@ require_once __DIR__.'/src/functions.php';
                                 <span>(<?= $class ?>)</span>
                             </div>
                             <div class="card-body">
-                                <p class="text-muted">
-                                    min: <?= $min ?>,
-                                    max: <?= $max ?>,
-                                    prefer: <?= $prefer ?>,
+                                <p>
+                                    <?php foreach ($block['cols'] as $k => $num): ?>
+                                        <span class="<?= is_null($cols) ? 'text-muted' : ($key === $k ? 'text-success font-weight-bold' : 'text-muted') ?>"><?= $k ?>: <?= $num ?></span><?= $k !== 'prefer' ? ',' : '' ?>
+                                    <?php endforeach; ?>
                                 </p>
                                 <?= $config['lorem'] ?>
                             </div>

@@ -69,15 +69,18 @@ return [
     'users' => [
         [
             'id' => 1,
-            'name' => 'John Doe',
-            'email' => 'john.doe@gmail.com',
-            'blocks' => [1, 3, 4, 5, 7]
+            'name' => 'User 1',
+            'blocks' => [1, 4, 6, 7]
         ],
         [
             'id' => 2,
-            'name' => 'Jane Doe',
-            'email' => 'jane.doe@gmail.com',
-            'blocks' => [1, 2, 3, 4]
+            'name' => 'User 2',
+            'blocks' => [1, 3, 5]
+        ],
+        [
+            'id' => 3,
+            'name' => 'User 3',
+            'blocks' => [1, 2, 4, 6]
         ]
     ]
 ];

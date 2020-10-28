@@ -14,22 +14,6 @@ function findBlock(int $id): array {
 
 /**
  * @param array $user
- * @param string $key
- * @return int
- */
-function getTotalCols(array $user, string $key): int {
-    $callback = function ($total, int $id) use ($key): int {
-        $block = findBlock($id);
-        $total += $block['cols'][$key];
-
-        return $total;
-    };
-
-    return array_reduce($user['blocks'], $callback, 0);
-}
-
-/**
- * @param array $user
  * @return array
  */
 function getRows(array $user): array {
@@ -63,7 +47,7 @@ function getRows(array $user): array {
 
                     if ($num1 === $maxCols) {
                         $row = [
-                            ['block' => $current, 'cols' => $num1]
+                            ['block' => $current, 'cols' => $num1, 'key' => $key1]
                         ];
 
                         $j = $keysCount;
@@ -72,8 +56,8 @@ function getRows(array $user): array {
                     } else {
                         if ($num1 + $num2 === $maxCols) {
                             $row = [
-                                ['block' => $current, 'cols' => $num1],
-                                ['block' => $next, 'cols' => $num2]
+                                ['block' => $current, 'cols' => $num1, 'key' => $key1],
+                                ['block' => $next, 'cols' => $num2, 'key' => $key2]
                             ];
 
                             $j = $keysCount;
@@ -86,7 +70,7 @@ function getRows(array $user): array {
 
             if (! $row) {
                 $row = [
-                    ['block' => $current, 'cols' => null]
+                    ['block' => $current, 'cols' => null, 'key' => 'prefer']
                 ];
 
                 $step = $step + 1;
@@ -94,7 +78,7 @@ function getRows(array $user): array {
         } else {
             if ($current) {
                 $row = [
-                    ['block' => $current, 'cols' => null]
+                    ['block' => $current, 'cols' => null, 'key' => 'prefer']
                 ];
 
                 $step = count($blocks);
