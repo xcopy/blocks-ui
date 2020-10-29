@@ -29,8 +29,8 @@ function getRows(array $user): array {
     $rows = [];
 
     foreach ($blocks as $block) {
-        $current = $blocks[$step];
-        $next = $blocks[$step+1];
+        $current = $blocks[$step] ?? null;
+        $next = $blocks[$step+1] ?? null;
 
         $row = null;
 
